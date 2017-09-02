@@ -5,14 +5,13 @@ program tripleref;
 {$R *.res}
 
 uses
-  System.SysUtils;
+  SysUtils;
 
 type
   PTHING = ^THING;
   PPTHING = ^PTHING;
 
   THING = record
-  public
     item: string;
     next: PTHING;
   end;
@@ -24,8 +23,8 @@ var
 function NewElement(const text: string): PTHING;
 begin
   Result := PTHING(AllocMem(sizeof(THING)));
-  Result.item := text;
-  Result.next := nil;
+  Result^.item := text;
+  Result^.next := nil;
 end;
 
 procedure InsertThing(head: PPTHING; newp: PTHING);
@@ -34,12 +33,12 @@ var
 begin
   tracer := head;
 
-  while (tracer^ <> nil) and (CompareStr(tracer^.item, newp.item) < 1) do
+  while (tracer^ <> nil) and (CompareStr(tracer^^.item, newp^.item) < 1) do
   begin
-    tracer := Addr(tracer^.next);
+    tracer := Addr(tracer^^.next);
   end;
 
-  newp.next := tracer^;
+  newp^.next := tracer^;
   tracer^ := newp;
 end;
 
@@ -50,8 +49,8 @@ begin
   tracer := head;
   while (tracer^ <> nil) do
   begin
-    Writeln(tracer^.item);
-    tracer := Addr(tracer^.next);
+    Writeln(tracer^^.item);
+    tracer := Addr(tracer^^.next);
   end;
 end;
 
