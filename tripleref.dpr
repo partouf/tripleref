@@ -17,14 +17,14 @@ type
   end;
 
 var
-  start: ^THING = nil;
+  start: ^THING;
 
 
 function NewElement(const text: string): PTHING;
 begin
-  Result := PTHING(AllocMem(sizeof(THING)));
-  Result^.item := text;
-  Result^.next := nil;
+  NewElement := PTHING(AllocMem(sizeof(THING)));
+  NewElement^.item := text;
+  NewElement^.next := nil;
 end;
 
 procedure InsertThing(head: PPTHING; newp: PTHING);
@@ -68,11 +68,8 @@ begin
 end;
 
 begin
-  try
-    main;
-  except
-    on E: Exception do
-      Writeln(E.ClassName, ': ', E.Message);
-  end;
+  start := nil;
+
+  main;
 end.
 
