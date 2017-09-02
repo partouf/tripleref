@@ -1,7 +1,7 @@
 # tripleref
-Proof of concept that you can use tripple ref code in Object-Pascal
+Proof of concept that you can use tripple ref code in Pascal
 
-This is a object-pascal/delphi project translated from a C program written by Professor Brailsford demonstrated in a [Computerphile video](https://www.youtube.com/watch?v=1s0w_p5HEuY)
+This is a Delphi (Pascal compatible code) project translated from a C program written by Professor Brailsford demonstrated in a [Computerphile video](https://www.youtube.com/watch?v=1s0w_p5HEuY)
 
 [C source](http://www.eprg.org/computerphile/tripref.c)
 
