@@ -22,9 +22,9 @@ var
 
 function NewElement(const text: string): PTHING;
 begin
-  NewElement := PTHING(AllocMem(sizeof(THING)));
-  NewElement^.item := text;
-  NewElement^.next := nil;
+  Result := PTHING(AllocMem(sizeof(THING)));
+  Result^.item := text;
+  Result^.next := nil;
 end;
 
 procedure InsertThing(head: PPTHING; newp: PTHING);
