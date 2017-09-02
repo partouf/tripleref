@@ -42,6 +42,34 @@ begin
   tracer^ := newp;
 end;
 
+procedure RemoveThing(thing: PPTHING; const text: string);
+var
+  present: Boolean;
+  old: PTHING;
+  tracer: PPTHING;
+begin
+  present := False;
+  tracer := thing;
+
+  // note: can't do assignment while comparing in Pascal like you can do in C
+  // original C: while((*tracer) && !(present = (strcmp(text,(*tracer)->item) == 0 )  )) {tracer = &(*tracer)->next;}
+  while (tracer^ <> nil) do
+  begin
+    present := (CompareStr(text, tracer^^.item) = 0);
+    if present then
+      break;
+
+    tracer := Addr(tracer^^.next);
+  end;
+
+  if present then
+  begin
+    old := tracer^;
+    tracer^ := tracer^^.next;
+    FreeMem(old);
+  end;
+end;
+
 procedure PrintList(head: PPTHING);
 var
   tracer: PPTHING;
@@ -64,6 +92,17 @@ begin
   InsertThing(@start, NewElement('zucchini'));
   InsertThing(@start, NewElement('burgers'));
   InsertThing(@start, NewElement('slaw'));
+
+  WriteLn('');
+  Writeln('INITIAL LIST');
+  PrintList(@start);
+
+  RemoveThing(@start, 'pizza');
+  RemoveThing(@start, 'zucchini');
+  RemoveThing(@start, 'burgers');
+
+  WriteLn('');
+  Writeln('ALTERED LIST');
   PrintList(@start);
 end;
 
